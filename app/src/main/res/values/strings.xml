@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MAD_Project_001</string>
+    <string name="score_string">Score: 0</string>
+    <string name="strike_string">Strikes: 0</string>
 </resources>
