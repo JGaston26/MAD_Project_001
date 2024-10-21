@@ -4,4 +4,6 @@
     <string name="strike_string">Strikes: 0</string>
     <string name="top_number"> </string>
     <string name="bottom_number"> </string>
+    <string name="button_name">Start</string>
+    <string name="start_text">Press start to begin</string>
 </resources>
