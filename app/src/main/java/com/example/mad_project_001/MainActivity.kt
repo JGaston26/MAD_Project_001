@@ -18,11 +18,11 @@ import kotlin.concurrent.thread
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+    var scoreCount: Int = 0;
+    var strikeCount: Int = 0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        var strikeCount: Int = 0;
-        var scoreCount: Int = 0;
         val strikes: TextView = findViewById(R.id.strikes);
         val score: TextView = findViewById(R.id.score);
         val startText: TextView = findViewById(R.id.start_text);
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 startText.text = "Tap the larger number";
             }else{
                 restart(topNum,bottomNum,startButton,startText,strikes,score,background);
-                scoreCount = 0;
+                scoreCount =0;
                 strikeCount=0;
             }
         }
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 changeColor("#d90d0d",background);
             }
             setRandNums(topNum,bottomNum);
-            checkWinLoseConditions(topNum,bottomNum,startButton,startText,strikes,score,background,scoreCount,strikeCount)
+            checkWinLoseConditions(topNum,bottomNum,startButton,startText,strikes,score,background)
         }
         bottomNum.setOnClickListener{
             val result: Int = compare(bottomNum,topNum);
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 changeColor("#d90d0d",background);
             }
             setRandNums(topNum,bottomNum);
-            checkWinLoseConditions(topNum,bottomNum,startButton,startText,strikes,score,background,scoreCount,strikeCount)
+            checkWinLoseConditions(topNum,bottomNum,startButton,startText,strikes,score,background)
         }
     }
     private fun compare(view1: TextView, view2: TextView) : Int {
@@ -121,16 +121,21 @@ class MainActivity : AppCompatActivity() {
     }
     private fun checkWinLoseConditions(numView1:TextView,numView2:TextView,button:Button,
                                        startText:TextView,strikes:TextView,score:TextView,
-                                       background: LinearLayout,scoreCount:Int,strikeCount:Int,) {
+                                       background: LinearLayout) {
         if (scoreCount == 10) {
             score.setTextColor(Color.parseColor("#FFFDEF74"))
             displayWin()
+            scoreCount = 0
+            strikeCount = 0;
             restart(numView1, numView2, button, startText, strikes, score, background)
             score.setTextColor(Color.parseColor("#3dfc03"))
+
         }
         if (strikeCount == 3) {
             strikes.setTextColor(Color.parseColor("#FFFDEF74"))
             displayLose()
+            scoreCount = 0
+            strikeCount = 0;
             restart(numView1, numView2, button, startText, strikes, score, background)
             strikes.setTextColor(Color.parseColor("#fc0303"))
         }
