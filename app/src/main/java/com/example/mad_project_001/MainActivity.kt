@@ -13,6 +13,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.Delay
+import kotlin.concurrent.thread
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -46,11 +48,14 @@ class MainActivity : AppCompatActivity() {
                 scoreCount++;
                 score.text = "Score: $scoreCount"
                 changeColor("#0dd925", background);
+                score.setTextColor(Color.parseColor("#FFFDEF74"))
+                strikes.setTextColor(Color.parseColor("#000000"))
             }else{
                 strikeCount++;
                 strikes.text = "Strikes: $strikeCount"
+                strikes.setTextColor(Color.parseColor("#FFFDEF74"))
+                score.setTextColor(Color.parseColor("#000000"))
                 changeColor("#d90d0d",background);
-
             }
             setRandNums(topNum,bottomNum);
             checkWinLoseConditions(topNum,bottomNum,startButton,startText,strikes,score,background,scoreCount,strikeCount)
@@ -60,10 +65,14 @@ class MainActivity : AppCompatActivity() {
             if(result == 0){
                 scoreCount++;
                 score.text = "Score: $scoreCount"
+                score.setTextColor(Color.parseColor("#FFFDEF74"))
+                strikes.setTextColor(Color.parseColor("#000000"))
                 changeColor("#0dd925", background);
             }else{
                 strikeCount++;
                 strikes.text = "Strikes: $strikeCount"
+                strikes.setTextColor(Color.parseColor("#FFFDEF74"))
+                score.setTextColor(Color.parseColor("#000000"))
                 changeColor("#d90d0d",background);
             }
             setRandNums(topNum,bottomNum);
@@ -94,9 +103,11 @@ class MainActivity : AppCompatActivity() {
         numView1.text = "";
         numView2.text= "";
         button.text="Start";
-        startText.text="Press start to begin";
+        startText.text="Press start to play again";
         strikes.text="Strikes: " + 0
         score.text="Score: " + 0
+        score.setTextColor(Color.BLACK)
+        strikes.setTextColor(Color.BLACK)
         changeColor("#FFFDEF74",background)
     }
 
@@ -108,14 +119,20 @@ class MainActivity : AppCompatActivity() {
             val loseToast: Toast = Toast.makeText(this,"You Lose :(",Toast.LENGTH_LONG)
             loseToast.show();
     }
-    private fun checkWinLoseConditions(numView1:TextView,numView2:TextView,button:Button,startText:TextView,strikes:TextView,score:TextView,background: LinearLayout,scoreCount:Int,strikeCount:Int) {
+    private fun checkWinLoseConditions(numView1:TextView,numView2:TextView,button:Button,
+                                       startText:TextView,strikes:TextView,score:TextView,
+                                       background: LinearLayout,scoreCount:Int,strikeCount:Int,) {
         if (scoreCount == 10) {
+            score.setTextColor(Color.parseColor("#FFFDEF74"))
             displayWin()
             restart(numView1, numView2, button, startText, strikes, score, background)
+            score.setTextColor(Color.parseColor("#3dfc03"))
         }
         if (strikeCount == 3) {
+            strikes.setTextColor(Color.parseColor("#FFFDEF74"))
             displayLose()
             restart(numView1, numView2, button, startText, strikes, score, background)
+            strikes.setTextColor(Color.parseColor("#fc0303"))
         }
     }
 }
